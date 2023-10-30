@@ -1,0 +1,79 @@
+import 'package:ecommerceapp/controller/setting_contrpller.dart';
+import 'package:ecommerceapp/core/constants/AppRoots.dart';
+import 'package:ecommerceapp/core/constants/appColors.dart';
+import 'package:ecommerceapp/core/constants/imagesAssets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class Settings extends StatelessWidget {
+  const Settings({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    SettingsController controller = Get.put(SettingsController());
+    return Container(
+      child: ListView(
+        children: [
+          Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.center,
+              children: [
+                Container(height: Get.width / 3, color: AppColor.fourthColor),
+                Positioned(
+                    top: Get.width / 3.9,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: CircleAvatar(
+                        radius: 40,
+                        backgroundColor: Colors.grey[100],
+                        backgroundImage: const AssetImage(imagesAssets.avater),
+                      ),
+                    )),
+              ]),
+          const SizedBox(height: 100),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Card(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                ListTile(
+                  // onTap: () {},
+                  trailing: Switch(onChanged: (val) {}, value: true),
+                  title: const Text("Disable Notificatios"),
+                ),
+                ListTile(
+                  onTap: () {
+                    Get.toNamed(AppRoots.viewaddress);
+                  },
+                  trailing: const Icon(Icons.location_on_outlined),
+                  title: const Text("Address"),
+                ),
+                ListTile(
+                  onTap: () {
+                    Get.toNamed(AppRoots.orders);
+                  },
+                  trailing: const Icon(Icons.shopify_rounded),
+                  title: const Text("Orders"),
+                ),
+                ListTile(
+                  onTap: () {},
+                  trailing: const Icon(Icons.contact_phone_outlined),
+                  title: const Text("Contact us"),
+                ),
+                ListTile(
+                  onTap: () {
+                    controller.logout();
+                  },
+                  title: const Text("Logout"),
+                  trailing: const Icon(Icons.exit_to_app),
+                ),
+              ]),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
